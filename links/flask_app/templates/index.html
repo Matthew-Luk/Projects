@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="head">
+            <h1>Welcome to our Linktree</h1>
+        </div>
+        <div class="body">
+            <div>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p>{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form class="register" action="/register" method="POST">
+                <h2>Register</h2>
+                    <label for="first_name">First Name: </label>
+                    <input type="text" name="first_name">
+                    <label for="last_name">Last Name: </label>
+                    <input type="text" name="last_name">
+                    <label for="email">Email: </label>
+                    <input type="text" name="email">
+                    <label for="password">Password: </label>
+                    <input type="password" name="password">
+                    <label for="confirm_password">Confirm Password: </label>
+                    <input type="password" name="confirm_password">
+                    <input id="register" type="submit" value="Register">
+                </form>
+            </div>
+            <div>
+                <form  class="login" action="/login" method="POST">
+                <h2>Login</h2>
+                    <label for="email">Email: </label>
+                    <input type="text" name="email">
+                    <label for="">Password: </label>
+                    <input type="password" name="password">
+                    <input id="login" type="submit" value="Login">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
