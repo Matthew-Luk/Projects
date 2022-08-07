@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button>
+                <a href="/logout">Logout</a>
+            </button>
+        </div>
+        <div class="head">
+            <h1>Welcome to our Linktree</h1>
+        </div>
+        <div class="links">
+            <div>
+                <button id="instagram">
+                    <a href="https://www.instagram.com/abbyandmattyeats/">Instagram</a>
+                </button>
+            </div>
+            <div>
+                <button id="instagram2">
+                    <a href="https://www.instagram.com/abigailmey/?hl=en">Abby's Instagram</a>
+                </button>
+            </div>
+            <div>
+                <button id="instagram3">
+                    <a href="https://www.instagram.com/moistmastermatt/?hl=en">Matthew's Instagram</a>
+                </button>
+            </div>
+            <div>
+                <button id="pictures">
+                    <a href="/add_comment">Add a Comment</a>
+                </button>
+            </div>
+        </div>
+        <div class="comments">
+            <h2>Comments</h2>
+            {%for i in all_comments%}
+                <div class="comment">
+                    <p>Name: {{i.users.first_name}} {{i.users.last_name}}</p>
+                    <p>Comment: {{i.comment}}</p>
+                    <p>Date Posted: {{i.created_at}}</p>
+                    {%if i.users.id == session_id%}
+                    <div>
+                        <button id="delete">
+                            <a href="/delete/{{i.id}}">Delete</a>
+                        </button>
+                        <button>
+                            <a href="/edit/{{i.id}}">Edit</a>
+                        </button>
+                    </div>
+                    {%endif%}
+                </div>
+            {%endfor%}
+        </div>
+    </div>
+</body>
+</html>
