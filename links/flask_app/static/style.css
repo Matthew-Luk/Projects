@@ -1,0 +1,91 @@
+.container{
+    position: fixed;
+    padding: 0px;
+    margin: 0px;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom right, purple , green);
+    width: 100%;
+    height: 100%;
+}
+
+.body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.head{
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+    color: white;
+}
+
+.register{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.links, .comments{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+.comments {
+    color: white;
+}
+
+#instagram, #instagram2, #instagram3, #pictures{
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.comment{
+    border: 2px solid black;
+    width: 50%;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.addcomment{
+    padding-top: 20px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#commentsubmit{
+    margin-top: 10px;
+    width: 100px;
+    box-shadow: 5px 5px black;
+}
+
+.header{
+    display: flex;
+    justify-content: end;
+    padding-top: 10px;
+    padding-right: 10px;
+}
+
+#delete{
+    margin-right: 20px;
+}
+
+.register label, .register h2, .login label, .login h2{
+    color: white;
+}
+
+#register, #login{
+    margin-top: 10px;
+}
