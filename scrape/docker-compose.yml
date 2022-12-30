@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=scrape
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "scrape", "-h", "localhost" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+  migrate:
+    image: migrate/migrate
+    depends_on:
+      database:
+        condition: service_healthy
+    volumes:
+      - ./migrations:/migrations
+    command: ["-path=/migrations/", "-database", "postgres://postgres:password@database:5432/scrape?sslmode=disable", "up"]
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
