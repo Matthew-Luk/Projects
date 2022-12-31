@@ -1,3 +1,6 @@
+## Dependencies
+* `pip install -r requirements.txt`
+
 ## Docker
 * Install [docker](https://www.docker.com/) for PC.
 * Start docker daemon on your PC.
@@ -8,3 +11,13 @@
 ## Testing
 * `pip install -U pytest`
 * Run command `pytest` in parent directory
+  
+## Misc. Libraries
+#### pytest
+* Description: runs all unit tests under the current working directory.
+* `cd /scrape/`
+* `pytest`
+#### pipreqs
+* Description: generates required libraries for a project using imports.
+* `cd /scrape/`
+* `pipreqs .`
