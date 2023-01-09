@@ -8,7 +8,7 @@ terminate() {
 
 #the rest of your code goes here
 commands=(
-	"python server/server.py"
+	"python3 server/server.py"
 	"npm start --prefix client/"
 )
 
