@@ -2,7 +2,9 @@ import './App.css';
 import {BrowserRouter, Routes, Router, Route, Navigate} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Login from './components/Login';
+import Profile from './components/Profile';
 import Home from './components/Home';
+import Dashboard from './components/Dashboard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -26,7 +28,8 @@ function App() {
           <Route path='/' element={<Navigate to ='/login'/>}/>
           <Route path='/login' element={<Login firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName}/>}/>
           <Route path='/home' element={<Home />}/>
-          
+          <Route path='/profile' element={<Profile />}/>
+          <Route path='/dashboard' element={<Dashboard />}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -18,7 +18,7 @@ const Login = (props) => {
     }
 
     return (
-        <div>
+        <div className='loginContainer'>
             <div className='loginHeader'>
                 <h1>Ray and Matt's App!</h1>
             </div>

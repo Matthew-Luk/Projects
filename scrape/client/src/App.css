@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin: 30px;
 }
 
 .loginHeader{
@@ -29,4 +30,27 @@
 .loginButton,.registerButton{
   width: 200px;
   height: 30px;
+}
+
+.homeContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.homeNavbar, .profileNavbar, .dashboardNavbar{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+
+
+.homeNavbar a, .profileNavbar a, .dashboardNavbar a{
+  margin-right: 10px;
+}
+
+#searchBar{
+  width: 400px;
+  margin-right: 5px;
+  margin-bottom: 30px;
 }

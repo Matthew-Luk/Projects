@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import '../App.css';
 
 const Home = () => {
 
     return (
-        <div>
-            <div className='homeContainer'>
-                <div className='homeNavbar'>
-                    <a href="">My Dashboard</a>
-                    <a href="">Log Out</a>
-                    <a href="">Settings</a>
-                </div>
-                <div className='homeSearchBar'>
-                    <input type="text"/>
-                    <input type="submit" value="Search"/>
-                </div>
-                <div className='homeContent'>
-                </div>
+        <div className='homeContainer'>
+            <div className='homeNavbar'>
+                <Link to={'/dashboard'}><a href='/dashboard'>My Dashboard</a></Link>
+                <Link to={'/profile'}><a href='/profile'>Profile</a></Link>
+                <Link to={'/'}><a href='/'>Logout</a></Link>
+            </div>
+            <div className='homeSearchBar'>
+                <input id='searchBar' type="text" placeholder='Search...'/>
+                <input type="submit" value="Search"/>
+            </div>
+            <div className='homeContent'>
+                <h3>Top Searches</h3>
             </div>
         </div>
     )
