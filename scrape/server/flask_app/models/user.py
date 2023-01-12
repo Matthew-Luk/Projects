@@ -1,4 +1,4 @@
-from flask_app.configuration import Config
+from scrape.server.flask_app.configuration import Config
 
 class User:
     def __init__(self,data):
