@@ -9,7 +9,7 @@ class Postgres:
     database: str = "scrape"
     port: int = 5432
 
-    conn: psycopg2.connection = None
+    conn = None
 
     def __init__(self, uri: str = "postgres://postgres:password@localhost:5432/scrape?sslmode=disable"):
         self.user, self.password, self.database, self.host, self.port = parse_uri(uri)
@@ -27,17 +27,19 @@ class Postgres:
 
     def __del__(self):
         # close the DB connection when we're finished
-        if not self.conn.closed:
+        if self.conn and not self.conn.closed:
             self.conn.close()
 
 
+# Example uri string: "postgres://postgres:password@localhost:5432/scrape?sslmode=disable"
 def parse_uri(uri: str) -> (str, str, str, str, int):
     result = urlparse(uri)
+    database = result.path.split("/")[1]  # "/scrape" -> ["", "scrape"]
 
     return (
         result.username,
         result.password,
-        result.database,
+        database,
         result.hostname,
         result.port
     )

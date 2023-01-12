@@ -31,7 +31,8 @@ class User:
 
     def create_user(self):
         cursor = self.postgres.conn.cursor()
-        cursor.execute()
+        query = """ INSERT INTO users (name, email, phone) VALUES (%s,%s,%s)"""
+        cursor.execute(query, ("test", "test@gmail.com", "415-312-2819"))
         self.postgres.conn.commit()
         count = cursor.rowcount
         cursor.close()
@@ -74,3 +75,15 @@ class User:
         self.postgres.conn.commit()
         count = cursor.rowcount
         cursor.close()
+
+
+if __name__ == "__main__":
+    config = Config()
+    config.POSTGRES_URL = "postgres://postgres:password@localhost:5432/scrape"
+
+    # how to use create_user() when it isn't static
+    user = User(config)
+    user.create_user()
+
+    # how to use create_user() when it is static
+    User.create_user()
