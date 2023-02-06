@@ -34,8 +34,6 @@ class Postgres:
 # Example uri string: "postgres://postgres:password@localhost:5432/scrape?sslmode=disable"
 def parse_uri(uri: str) -> (str, str, str, str, int):
     result = urlparse(uri)
-    print(uri)
-    print(result.path)
     database = result.path.split("/")[1]  # "/scrape" -> ["", "scrape"]
 
     return (

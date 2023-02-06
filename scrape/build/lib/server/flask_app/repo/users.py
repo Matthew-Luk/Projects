@@ -13,10 +13,7 @@ class User:
 
     def __init__(self, config: Config):
         self.postgres_uri = config.POSTGRES_URL
-        if config.POSTGRES_URL == "":
-            self.postgres = Postgres()
-        else:
-            self.postgres = Postgres(config.POSTGRES_URL)
+        self.postgres = Postgres(config.POSTGRES_URL)
 
     def get_all(self):
         cursor = self.postgres.conn.cursor()
@@ -92,44 +89,44 @@ class User:
         count = cursor.rowcount
         cursor.close()
 
-    # def validate_register(self, first_name: str, last_name: str, email: str, password: str):
-    #     is_valid = True
-    #     if not EMAIL_REGEX.match(email):
-    #         flash("Invalid Email Address")
-    #         is_valid = False
-    #     if len(first_name) < 3:
-    #         flash("First name must be at least 3 characters.")
-    #         is_valid = False
-    #     if len(last_name) < 3:
-    #         flash("Last name must be at least 3 characters.")
-    #         is_valid = False
-    #     if len(password) < 8:
-    #         flash("Password must be at least 8 characters.")
-    #         is_valid = False
-    #     return is_valid
-
-    def validate_register(user):
+    def validate_register(self, first_name: str, last_name: str, email: str, password: str):
         is_valid = True
-        user_in_db = User.get_user_by_email(user)
-        if user_in_db:
-            flash("Email is associated with another account")
-            is_valid = False
-        if not EMAIL_REGEX.match(user["email"]):
+        if not EMAIL_REGEX.match(email):
             flash("Invalid Email Address")
             is_valid = False
-        if len(user["first_name"]) < 3:
+        if len(first_name) < 3:
             flash("First name must be at least 3 characters.")
             is_valid = False
-        if len(user["last_name"]) < 3:
+        if len(last_name) < 3:
             flash("Last name must be at least 3 characters.")
             is_valid = False
-        if len(user["password"]) < 8:
+        if len(password) < 8:
             flash("Password must be at least 8 characters.")
             is_valid = False
-        if user["password"] != user["confirm_password"]:
-            flash("Passwords do not match!")
-            is_valid = False
         return is_valid
+
+    # def validate_register(user):
+    #     is_valid = True
+    #     user_in_db = User.get_user_by_email(user)
+    #     if user_in_db:
+    #         flash("Email is associated with another account")
+    #         is_valid = False
+    #     if not EMAIL_REGEX.match(user["email"]):
+    #         flash("Invalid Email Address")
+    #         is_valid = False
+    #     if len(user["first_name"]) < 3:
+    #         flash("First name must be at least 3 characters.")
+    #         is_valid = False
+    #     if len(user["last_name"]) < 3:
+    #         flash("Last name must be at least 3 characters.")
+    #         is_valid = False
+    #     if len(user["password"]) < 8:
+    #         flash("Password must be at least 8 characters.")
+    #         is_valid = False
+    #     if user["password"] != user["confirm_password"]:
+    #         flash("Passwords do not match!")
+    #         is_valid = False
+    #     return is_valid
 
 
 if __name__ == "__main__":
