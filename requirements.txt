@@ -1,0 +1,5 @@
+Flask==2.0.1
+Flask_Cors==3.0.10
+psycopg2==2.9.5
+scrape==0.11.3
+setuptools==58.1.0
