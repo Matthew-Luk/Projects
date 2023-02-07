@@ -92,22 +92,6 @@ class User:
         count = cursor.rowcount
         cursor.close()
 
-    # def validate_register(self, first_name: str, last_name: str, email: str, password: str):
-    #     is_valid = True
-    #     if not EMAIL_REGEX.match(email):
-    #         flash("Invalid Email Address")
-    #         is_valid = False
-    #     if len(first_name) < 3:
-    #         flash("First name must be at least 3 characters.")
-    #         is_valid = False
-    #     if len(last_name) < 3:
-    #         flash("Last name must be at least 3 characters.")
-    #         is_valid = False
-    #     if len(password) < 8:
-    #         flash("Password must be at least 8 characters.")
-    #         is_valid = False
-    #     return is_valid
-
     def validate_register(user):
         is_valid = True
         user_in_db = User.get_user_by_email(user)
