@@ -5,6 +5,7 @@
 .eggs/
 dist/
 scrape.egg-info/
+/scrape/build/*
 
 # ignore env files
 .env.*
