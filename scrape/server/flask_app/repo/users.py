@@ -1,7 +1,9 @@
 from scrape.server.flask_app.models import User as UserModel
 from scrape.server.flask_app.models import Postgres
 from scrape.server.flask_app.configuration import Config
+import re
 
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 # Use https://pynative.com/python-postgresql-insert-update-delete-table-data-to-perform-crud-operations/
 class User:
@@ -10,7 +12,20 @@ class User:
 
     def __init__(self, config: Config):
         self.postgres_uri = config.POSTGRES_URL
-        self.postgres = Postgres(config.POSTGRES_URL)
+        if config.POSTGRES_URL == "":
+            self.postgres = Postgres()
+        else:
+            self.postgres = Postgres(config.POSTGRES_URL)
+
+    def get_all(self):
+        cursor = self.postgres.conn.cursor()
+        query = """SELECT * FROM users"""
+        cursor.execute(query)
+        self.postgres.conn.commit()
+        record = cursor.fetchall()
+        print(record)
+        cursor.close()
+        return record
 
     def get_user_by_id(self, user_id: str):
         cursor = self.postgres.conn.cursor()
@@ -75,6 +90,23 @@ class User:
         self.postgres.conn.commit()
         count = cursor.rowcount
         cursor.close()
+
+    def validate_register(user):
+        is_valid = True
+        user_in_db = User.get_user_by_email(user)
+        if user_in_db:
+            is_valid = False
+        if not EMAIL_REGEX.match(user["email"]):
+            is_valid = False
+        if len(user["first_name"]) < 3:
+            is_valid = False
+        if len(user["last_name"]) < 3:
+            is_valid = False
+        if len(user["password"]) < 8:
+            is_valid = False
+        if user["password"] != user["confirm_password"]:
+            is_valid = False
+        return is_valid
 
 
 if __name__ == "__main__":
