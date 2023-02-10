@@ -12,9 +12,8 @@ class Postgres:
     conn = None
 
     def __init__(self, uri: str = "postgres://postgres:password@localhost:5432/scrape?sslmode=disable"):
-
-        if uri == "": uri = "postgres://postgres:password@localhost:5432/scrape?sslmode=disable"
         # set default postgres uri to one that hits docker postgres
+        if uri == "": uri = "postgres://postgres:password@localhost:5432/scrape?sslmode=disable"
         self.user, self.password, self.database, self.host, self.port = parse_uri(uri)
 
         try:
@@ -37,8 +36,6 @@ class Postgres:
 # Example uri string: "postgres://postgres:password@localhost:5432/scrape?sslmode=disable"
 def parse_uri(uri: str) -> (str, str, str, str, int):
     result = urlparse(uri)
-    print(uri)
-    print(result.path)
     database = result.path.split("/")[1]  # "/scrape" -> ["", "scrape"]
 
     return (

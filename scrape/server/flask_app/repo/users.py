@@ -1,7 +1,6 @@
 from scrape.server.flask_app.models import User as UserModel
 from scrape.server.flask_app.models import Postgres
 from scrape.server.flask_app.configuration import Config
-from flask import flash
 import re
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -92,42 +91,20 @@ class User:
         count = cursor.rowcount
         cursor.close()
 
-    # def validate_register(self, first_name: str, last_name: str, email: str, password: str):
-    #     is_valid = True
-    #     if not EMAIL_REGEX.match(email):
-    #         flash("Invalid Email Address")
-    #         is_valid = False
-    #     if len(first_name) < 3:
-    #         flash("First name must be at least 3 characters.")
-    #         is_valid = False
-    #     if len(last_name) < 3:
-    #         flash("Last name must be at least 3 characters.")
-    #         is_valid = False
-    #     if len(password) < 8:
-    #         flash("Password must be at least 8 characters.")
-    #         is_valid = False
-    #     return is_valid
-
     def validate_register(user):
         is_valid = True
         user_in_db = User.get_user_by_email(user)
         if user_in_db:
-            flash("Email is associated with another account")
             is_valid = False
         if not EMAIL_REGEX.match(user["email"]):
-            flash("Invalid Email Address")
             is_valid = False
         if len(user["first_name"]) < 3:
-            flash("First name must be at least 3 characters.")
             is_valid = False
         if len(user["last_name"]) < 3:
-            flash("Last name must be at least 3 characters.")
             is_valid = False
         if len(user["password"]) < 8:
-            flash("Password must be at least 8 characters.")
             is_valid = False
         if user["password"] != user["confirm_password"]:
-            flash("Passwords do not match!")
             is_valid = False
         return is_valid
 

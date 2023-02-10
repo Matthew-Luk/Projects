@@ -3,7 +3,7 @@ import os
 
 class Config:
     # declare environment variables here w/ their default values
-    POSTGRES_URL = ""
+    POSTGRES_URL = "postgres://postgres:password@localhost:5432/scrape?sslmode=disable"
     REDIS_URL = ""
 
     def __init__(self):
