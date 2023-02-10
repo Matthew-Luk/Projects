@@ -12,6 +12,9 @@ class Postgres:
     conn = None
 
     def __init__(self, uri: str = "postgres://postgres:password@localhost:5432/scrape?sslmode=disable"):
+
+        if uri == "": uri = "postgres://postgres:password@localhost:5432/scrape?sslmode=disable"
+        # set default postgres uri to one that hits docker postgres
         self.user, self.password, self.database, self.host, self.port = parse_uri(uri)
 
         try:
