@@ -2,7 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css';
 
-const Home = () => {
+const Home = (props) => {
+    const {list,setList,watchList,setWatchList} = props
+
+    // const addHandler = (e) => {
+    //     e.preventDefault()
+
+    // }
+
 
     return (
         <div className='homeContainer'>
@@ -16,7 +23,16 @@ const Home = () => {
                 <input type="submit" value="Search"/>
             </div>
             <div className='homeContent'>
-                <h3>Top Searches</h3>
+                <h3>Top Searches:</h3>
+                {
+                    list.map((item,index) => (
+                        <div key={index}>
+                            <h4>{item.name}</h4>
+                            <img src="" alt=""/>
+                            <button onClick={()=>addHandler()}>Add to watchlist</button>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     )

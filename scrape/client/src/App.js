@@ -11,6 +11,8 @@ function App() {
   const [currentTime, setCurrentTime] = useState(1)
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
+  const [list, setList] = useState([])
+  const [watchList, setWatchList] = useState([])
 
   useEffect(() => {
     fetch("http://127.0.0.1:5000/time")
@@ -27,7 +29,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Navigate to ='/login'/>}/>
           <Route path='/login' element={<Login firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName}/>}/>
-          <Route path='/home' element={<Home />}/>
+          <Route path='/home' element={<Home list={list} setList={setList} watchList={watchList} setWatchList={setWatchList}/>}/>
           <Route path='/profile' element={<Profile />}/>
           <Route path='/dashboard' element={<Dashboard />}/>
         </Routes>
