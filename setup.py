@@ -3,7 +3,7 @@ import os
 
 # read requirements.txt and install them as dependencies for the project
 install_requires = [
-    "redis"
+    "redis",
 ]  # Here we'll get: ["redis", "flask", "flask_cors"]
 if os.path.isfile("requirements.txt"):
     with open("requirements.txt") as fp:
