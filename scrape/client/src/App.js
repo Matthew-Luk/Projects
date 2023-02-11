@@ -11,7 +11,7 @@ function App() {
   const [currentTime, setCurrentTime] = useState(1)
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
-  const [list, setList] = useState([])
+  const [topSearches, setTopSearches] = useState([])
   const [watchList, setWatchList] = useState([])
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Navigate to ='/login'/>}/>
           <Route path='/login' element={<Login firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName}/>}/>
-          <Route path='/home' element={<Home list={list} setList={setList} watchList={watchList} setWatchList={setWatchList}/>}/>
+          <Route path='/home' element={<Home topSearches={topSearches} setTopSearches={setTopSearches} watchList={watchList} setWatchList={setWatchList}/>}/>
           <Route path='/profile' element={<Profile />}/>
           <Route path='/dashboard' element={<Dashboard />}/>
         </Routes>

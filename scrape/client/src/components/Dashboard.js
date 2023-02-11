@@ -11,7 +11,7 @@ const Dashboard = () => {
                 <Link to={'/'}><a href='/'>Logout</a></Link>
             </div>
             <div className='dashboardContent'>
-                <h3>Your Items:</h3>
+                <h3>Your Watchlist:</h3>
             </div>
         </div>
     )

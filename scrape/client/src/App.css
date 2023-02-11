@@ -43,8 +43,6 @@
   margin-bottom: 15px;
 }
 
-
-
 .homeNavbar a, .profileNavbar a, .dashboardNavbar a{
   margin-right: 10px;
 }
@@ -53,4 +51,26 @@
   width: 400px;
   margin-right: 5px;
   margin-bottom: 30px;
+}
+
+.homeContentTopSearches{
+  display: flex;
+  height: 300px;
+  justify-content: space-around;
+}
+
+.product-block{
+  display: flex;
+  flex-direction: column;
+}
+
+.image{
+  border: 1px solid black;
+  height: 500px;
+  width: 300px;
+}
+
+.addBtn{
+  margin-top: 5px;
+  border-radius: 5px;
 }
