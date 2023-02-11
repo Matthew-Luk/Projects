@@ -15,7 +15,7 @@ class Product:
 
     def get_top_searches(self):
         cursor = self.postgres.conn.cursor()
-        query = """SELECT * FROM products ORDER BY likes DESC LIMIT 4"""
+        query = """SELECT * FROM products LIMIT 4"""
         cursor.execute(query)
         self.postgres.conn.commit()
         record = cursor.fetchall()

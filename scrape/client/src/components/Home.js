@@ -1,14 +1,23 @@
-import React from 'react'
+import {useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css';
 
 const Home = (props) => {
-    const {list,setList,watchList,setWatchList} = props
+    const {topSearches,setTopSearches,watchList,setWatchList} = props
 
     // const addHandler = (e) => {
     //     e.preventDefault()
 
     // }
+
+    useEffect(() => {
+        fetch("http://localhost:5000/top_searches")
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.top_searches)
+            setTopSearches(data.top_searches)
+        })
+    },[])
 
 
     return (
@@ -24,15 +33,17 @@ const Home = (props) => {
             </div>
             <div className='homeContent'>
                 <h3>Top Searches:</h3>
-                {
-                    list.map((item,index) => (
-                        <div key={index}>
-                            <h4>{item.name}</h4>
-                            <img src="" alt=""/>
-                            <button onClick={()=>addHandler()}>Add to watchlist</button>
-                        </div>
-                    ))
-                }
+                <div className='homeContentTopSearches'>
+                    {
+                        topSearches.map((item,index) => (
+                            <div className='product-block' key={index}>
+                                <h4>{item.name}</h4>
+                                <img className='image' src={item.picture} alt=""/>
+                                <button className='addBtn'>Add to watchlist</button>
+                            </div>
+                        ))
+                    }
+                </div>
             </div>
         </div>
     )

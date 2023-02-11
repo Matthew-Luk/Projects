@@ -11,6 +11,7 @@ const Login = (props) => {
 
     const registerHandler = (e) => {
         e.preventDefault()
+        const newUser = {firstName,lastName,email,password}
     }
 
     const loginHandler = (e) => {
@@ -27,19 +28,19 @@ const Login = (props) => {
                     <h2>Register</h2>
                     <div className='inputblocks'>
                         <label>First Name:</label><br/>
-                        <input className='input' type="text"/>
+                        <input className='input' onChange={(e) => setFirstName(e.target.value)} type="text"/>
                     </div>
                     <div className='inputblocks'>
                         <label>Last Name:</label><br/>
-                        <input className='input' type="text"/>
+                        <input className='input' onChange={(e) => setLastName(e.target.value)} type="text"/>
                     </div>
                     <div className='inputblocks'>
                         <label>Email:</label><br/>
-                        <input className='input' type="text"/>
+                        <input className='input' onChange={(e) => setEmail(e.target.value)} type="text"/>
                     </div>
                     <div className='inputblocks'>
                         <label>Password:</label><br/>
-                        <input className='input' type="text"/>
+                        <input className='input' onChange={(e) => setPassword(e.target.value)} type="text"/>
                     </div>
                     <div className='inputblocks'>
                         <label>Confirm Password:</label><br/>
