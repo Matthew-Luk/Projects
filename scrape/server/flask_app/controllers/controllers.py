@@ -21,3 +21,7 @@ class Controller:
             cls.product_repo = ProductRepo(cls.config)
         
         return cls.product_repo
+
+    @classmethod
+    def this_is_a_test(cls):
+        pass
