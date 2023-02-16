@@ -25,3 +25,7 @@ class Controller:
     @classmethod
     def this_is_a_test(cls):
         pass
+
+    @classmethod
+    def this_is_a_test2(cls):
+        pass
