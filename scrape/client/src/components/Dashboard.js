@@ -6,9 +6,9 @@ const Dashboard = () => {
     return (
         <div className='dashboardContainer'>
             <div className='dashboardNavbar'>
-                <Link to={'/home'}><a href='/home'>Home</a></Link>
-                <Link to={'/profile'}><a href='/profile'>Profile</a></Link>
-                <Link to={'/'}><a href='/'>Logout</a></Link>
+                <Link to={'/home'}>Home</Link>
+                <Link to={'/profile'}>Profile</Link>
+                <Link to={'/'}>Logout</Link>
             </div>
             <div className='dashboardContent'>
                 <h3>Your Watchlist:</h3>

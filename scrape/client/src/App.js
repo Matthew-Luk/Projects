@@ -11,26 +11,28 @@ function App() {
   const [currentTime, setCurrentTime] = useState(1)
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
   const [topSearches, setTopSearches] = useState([])
   const [watchList, setWatchList] = useState([])
 
-  useEffect(() => {
-    fetch("http://127.0.0.1:5000/time")
-    .then(res => res.json())
-    .then(data => {
-      setCurrentTime(data.time)
-      console.log(data)
-    })
-  },[])
+  // useEffect(() => {
+  //   fetch("http://127.0.0.1:5000/time")
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     setCurrentTime(data.time)
+  //     console.log(data)
+  //   })
+  // },[])
 
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Navigate to ='/login'/>}/>
-          <Route path='/login' element={<Login firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName}/>}/>
-          <Route path='/home' element={<Home topSearches={topSearches} setTopSearches={setTopSearches} watchList={watchList} setWatchList={setWatchList}/>}/>
-          <Route path='/profile' element={<Profile />}/>
+          <Route path='/login' element={<Login firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}/>
+          <Route path='/home' element={<Home firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} email={email} setEmail={setEmail} password={password} setPassword={setPassword} topSearches={topSearches} setTopSearches={setTopSearches} watchList={watchList} setWatchList={setWatchList}/>}/>
+          <Route path='/profile' element={<Profile firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}/>
           <Route path='/dashboard' element={<Dashboard />}/>
         </Routes>
       </BrowserRouter>

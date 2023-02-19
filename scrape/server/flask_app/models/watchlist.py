@@ -8,3 +8,6 @@ class Watchlist:
 
     def save(self):
         pass
+
+    def get_watchlist(self,data):
+        pass

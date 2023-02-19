@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import '../App.css';
 
 const Home = (props) => {
-    const {topSearches,setTopSearches,watchList,setWatchList} = props
+    const {firstName,setFirstName,lastName,setLastName,email,setEmail,password,setPassword,topSearches,setTopSearches,watchList,setWatchList} = props
 
     // const addHandler = (e) => {
     //     e.preventDefault()
@@ -19,13 +19,20 @@ const Home = (props) => {
         })
     },[])
 
+    const logoutHandler = () => {
+        setFirstName("")
+        setLastName("")
+        setEmail("")
+        setPassword("")
+        console.log("logged out")
+    }
 
     return (
         <div className='homeContainer'>
             <div className='homeNavbar'>
-                <Link to={'/dashboard'}><a href='/dashboard'>My Dashboard</a></Link>
-                <Link to={'/profile'}><a href='/profile'>Profile</a></Link>
-                <Link to={'/'}><a href='/'>Logout</a></Link>
+                <Link to={'/dashboard'}>My Dashboard</Link>
+                <Link to={'/profile'}>Profile</Link>
+                <Link to={'/'} onClick={logoutHandler}>Logout</Link>
             </div>
             <div className='homeSearchBar'>
                 <input id='searchBar' type="text" placeholder='Search...'/>
