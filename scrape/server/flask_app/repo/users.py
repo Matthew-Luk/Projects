@@ -43,28 +43,34 @@ class User:
         record = cursor.fetchone()
         print(record)
         cursor.close()
+        return record
 
-    def create_user(self):
+    def create_user(self, user: dict):
         cursor = self.postgres.conn.cursor()
-        query = """ INSERT INTO users (name, email, phone) VALUES (%s,%s,%s)"""
-        cursor.execute(query, ("test", "test@gmail.com", "415-312-2819"))
+        query = """INSERT INTO users (first_name, last_name, email, password) VALUES (%s,%s,%s,%s)"""
+        cursor.execute(query, (user["first_name"], user["last_name"], user["email"], user["password"],))
         self.postgres.conn.commit()
         count = cursor.rowcount
         cursor.close()
+        return count
 
     def edit_user_by_id(
             self,
+            first_name: str = "",
+            last_name: str = "",
             email: str = "",
-            phone_number: str = "",
             password: str = ""):
         cursor = self.postgres.conn.cursor()
 
         query = ""
-        if email != "":
-            # TODO: query for updating email using user_id
+        if first_name != "":
+            # TODO: query for updating first_name using user_id
             query = ""
-        elif phone_number != "":
-            # TODO: query for updating phone_number using user_id
+        elif last_name != "":
+            # TODO: query for updating last_name using user_id
+            query = ""
+        elif email != "":
+            # TODO: query for updating email using user_id
             query = ""
         elif password != "":
             # TODO: query for updating password using user_id
@@ -76,6 +82,15 @@ class User:
         self.postgres.conn.commit()
         count = cursor.rowcount
         cursor.close()
+
+    # Possibility for edit function
+    # def edit_user_by_id(self, id: int, first_name: str, last_name: str, email: str, password: str):
+    #     cursor = self.postgres.conn.cursor()
+    #     query = """UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s WHERE id = %s"""
+    #     cursor.execute(query, (id, first_name, last_name, email, password,))
+    #     self.postgres.conn.commit()
+    #     count = cursor.rowcount
+    #     cursor.close()
 
     def delete_user_by_id(self):
         cursor = self.postgres.conn.cursor()
@@ -91,23 +106,33 @@ class User:
         count = cursor.rowcount
         cursor.close()
 
-    def validate_register(user):
-        is_valid = True
-        user_in_db = User.get_user_by_email(user)
-        if user_in_db:
-            is_valid = False
+    def validate_register(self, user: dict):
+        error = []
+        user_in_db = self.get_user_by_email(email = user["email"])
+        if user_in_db != None:
+            error.append("Email is associated with another account.")
         if not EMAIL_REGEX.match(user["email"]):
-            is_valid = False
+            error.append("Email is invalid.")
         if len(user["first_name"]) < 3:
-            is_valid = False
+            error.append("First name must be at least 3 characters.")
         if len(user["last_name"]) < 3:
-            is_valid = False
+            error.append("Last name must be at least 3 characters.")
         if len(user["password"]) < 8:
-            is_valid = False
+            error.append("Password must be at least 8 characters")
         if user["password"] != user["confirm_password"]:
-            is_valid = False
-        return is_valid
+            error.append("Passwords must match")
+        return error
 
+    def validate_login(self, user: dict):
+        error = "True"
+        user_in_db = User.get_by_email(user)
+        if not user_in_db:
+            error = "Email is not associated with an account!"
+        elif not EMAIL_REGEX.match(user["email"]):
+            error = "Invalid Email Address"
+        elif len(user["password"]) < 8:
+            error = "Password must be at least 8 characters."
+        return error
 
 if __name__ == "__main__":
     config = Config()
