@@ -15,3 +15,13 @@ class User:
         # Auto generated fields
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
+
+    def to_json(self) -> dict:
+        return {
+            "id": self.id,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "email": self.email,
+            "password": self.password
+            # TODO: add the rest of info
+        }

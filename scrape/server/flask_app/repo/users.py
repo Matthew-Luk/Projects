@@ -1,9 +1,12 @@
 from scrape.server.flask_app.models import User as UserModel
 from scrape.server.flask_app.models import Postgres
 from scrape.server.flask_app.configuration import Config
+import psycopg2
+import psycopg2.extras
 import re
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+PASSWORD_REGEX = re.compile(r'^(?=.*[~!@#$%^&*()_+<>?]).*$')
 
 # Use https://pynative.com/python-postgresql-insert-update-delete-table-data-to-perform-crud-operations/
 class User:
@@ -41,14 +44,15 @@ class User:
         cursor.execute(query, (email,))
         self.postgres.conn.commit()
         record = cursor.fetchone()
-        print(record)
+        user = UserModel(record)
+        print(user)
         cursor.close()
-        return record
+        return user
 
     def create_user(self, user: dict):
         cursor = self.postgres.conn.cursor()
-        query = """INSERT INTO users (first_name, last_name, email, password) VALUES (%s,%s,%s,%s)"""
-        cursor.execute(query, (user["first_name"], user["last_name"], user["email"], user["password"],))
+        query = """INSERT INTO users (first_name, last_name, email, password, phone_number) VALUES (%s,%s,%s,%s,%s)"""
+        cursor.execute(query, (user["first_name"], user["last_name"], user["email"], user["password"],user["phone_number"],))
         self.postgres.conn.commit()
         count = cursor.rowcount
         cursor.close()
@@ -117,21 +121,23 @@ class User:
             error.append("First name must be at least 3 characters.")
         if len(user["last_name"]) < 3:
             error.append("Last name must be at least 3 characters.")
-        if len(user["password"]) < 8:
-            error.append("Password must be at least 8 characters")
-        if user["password"] != user["confirm_password"]:
+        if user["password"] == "Password must be at least 8 characters.":
+            error.append("Password must be at least 8 characters.")
+        if user["confirm_password"] != True:
             error.append("Passwords must match")
+        if not PASSWORD_REGEX.match(user["password"]):
+            error.append("Password needs at least 1 special character.")
         return error
 
     def validate_login(self, user: dict):
-        error = "True"
-        user_in_db = User.get_by_email(user)
+        error = []
+        user_in_db = self.get_user_by_email(email = user["email"])
         if not user_in_db:
-            error = "Email is not associated with an account!"
-        elif not EMAIL_REGEX.match(user["email"]):
-            error = "Invalid Email Address"
-        elif len(user["password"]) < 8:
-            error = "Password must be at least 8 characters."
+            error.append("Email is not associated with an account!")
+        if not EMAIL_REGEX.match(user["email"]):
+            error.append("Invalid Email Address")
+        if len(user["password"]) < 8:
+            error.append("Password must be at least 8 characters.")
         return error
 
 if __name__ == "__main__":
