@@ -1,8 +1,10 @@
 create table if not exists users (
 	id bigserial primary key,
-	name text not null,
+	first_name text not null,
+	last_name text not null,
 	email text not null,
-	phone text,
+	phone_number text,
+	password text not null,
 	created_at timestamptz not null default now(),
 	updated_at timestamptz not null default now(),
 	deleted_at timestamptz

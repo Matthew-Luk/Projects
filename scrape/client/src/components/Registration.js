@@ -1,26 +1,75 @@
-import React, {useState} from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, {useState, useRef} from 'react'
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import '../static/CSS/login_registration_profile.css';
+import bcrypt from 'bcryptjs'
 
-const Profile = (props) => {
+const Registration = (props) => {
 
     const {firstName,setFirstName,lastName,setLastName,email,setEmail,password,setPassword} = props
     const [confirmPassword,setConfirmPassword] = useState("")
     const [phoneNumber,setPhoneNumber] = useState("000-000-0000")
     const [errors,setErrors] = useState([])
-    const {id} = useParams()
+    const navigate = useNavigate()
 
-    // use id from useParams and useEffect to get database info and set props to those values.
-
+    const registerHandler = (e) => {
+        e.preventDefault()
+        if(password.length < 8){
+            var hashedPassword = "Password must be at least 8 characters."
+        }else{
+            var hashedPassword = bcrypt.hashSync(password, 10)
+        }
+        if(hashedPassword == "Password must be at least 8 characters."){
+            if(password == confirmPassword){
+                var hashedPasswordCheck = true
+            }else{
+                var hashedPasswordCheck = false
+            }
+        }else{
+            var hashedPasswordCheck = bcrypt.compareSync(confirmPassword, hashedPassword)
+        }
+        // if(PASSWORD_REGEX.test(password)){
+        //     setPasswordRegEx(true)
+        // }else{
+        //     setPasswordRegEx(false)
+        // }
+        const user = {
+            "first_name":firstName,
+            "last_name":lastName,
+            "email":email,
+            "password":hashedPassword,
+            "confirm_password":hashedPasswordCheck,
+            "phone_number":phoneNumber
+        }
+        fetch("http://localhost:5000/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.results)
+            if(data.results.length > 0){
+                setErrors(data.results)
+            }else{
+                navigate("/home")
+            }
+        }).catch(() => {
+            console.log("An error occured")
+            navigate("/registration")
+        })
+    }
 
     return (
         <section>
-            <div className='container-profile'>
+            <div className='container-register'>
                 <div className='header'>
-                    <h1>Update Profile</h1>
+                    <h1>Sign Up</h1>
                 </div>
-                <form className='profileForm'>
+                <form className='registerForm' onSubmit={registerHandler}>
                     <div className='errors'>
                         {
                             errors?
@@ -87,16 +136,16 @@ const Profile = (props) => {
                         </div>
                     </div>
                     <div>
-                        <input className='button' type="submit" value="UPDATE"/>
+                        <input className='button' type="submit" value="REGISTER"/>
                     </div>
                 </form>
-                <div className='home-link'>
-                    <p>Nothing To Change?</p>
-                    <a href="/home">GO BACK</a>
+                <div className='login-link'>
+                    <p>Already Have An Account?</p>
+                    <a href="/login">LOGIN &rarr;</a>
                 </div>
             </div>
         </section>
     )
 }
 
-export default Profile
+export default Registration

@@ -1,4 +1,4 @@
-from scrape.server.flask_app.models import Watchlist as WatchlistModel
+from scrape.server.flask_app.models.watchlist import Watchlist as WatchlistModel
 from scrape.server.flask_app.models import Postgres
 from scrape.server.flask_app.configuration import Config
 
